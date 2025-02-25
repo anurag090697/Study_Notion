@@ -13,7 +13,7 @@ import bggrid from "../../assets/gridbg.avif";
 import planyl from "../../assets/Plan_your_lessons.png";
 import knowyp from "../../assets/Know_your_progress.png";
 import comparwo from "../../assets/Compare_with_others.png";
-import instructor from "../../assets/virtual-Instructor.jpg";
+import instructor from "../../assets/vi.jpg";
 import girlCoding from "../../assets/Girl-Coding.jpg";
 import { NavLink } from "react-router-dom";
 import { FaRightLong } from "react-icons/fa6";
