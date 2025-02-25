@@ -1,8 +1,14 @@
 /** @format */
 
-import React, { useEffect } from "react";
-import hero1 from "../../assets/200.jpg";
+import React, { useEffect, useState } from "react";
+import hero1 from "../../assets/hero1.jpg";
 import hero2 from "../../assets/hero2.jpg";
+import hero3 from "../../assets/hero3.webp";
+import hero4 from "../../assets/hero4.jpg";
+import hero5 from "../../assets/hero5.jpg";
+import hero6 from "../../assets/hero6.webp";
+import hero7 from "../../assets/hero7.jpg";
+
 import bggrid from "../../assets/gridbg.avif";
 import planyl from "../../assets/Plan_your_lessons.png";
 import knowyp from "../../assets/Know_your_progress.png";
@@ -20,6 +26,17 @@ import "aos/dist/aos.css";
 import ReactTypingEffect from "react-typing-effect";
 
 function Home() {
+  const [idx, setIdx] = useState(0);
+  const heroBgs = [hero1, hero2, hero3, hero4, hero4, hero5, hero6, hero7];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIdx((prev) => (prev < heroBgs.length - 1 ? prev + 1 : 0));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const codeBlock = [
     "<<!DOCTYPE html>>",
     "<html>",
@@ -40,7 +57,7 @@ function Home() {
     <div className='select-none dark:text-white'>
       <div
         className='h-screen w-full bg-cover bg-no-repeat'
-        style={{ backgroundImage: `url(${hero2})` }}
+        style={{ backgroundImage: `url(${heroBgs[idx]})` }}
       >
         <div className='flex flex-col items-center justify-center gap-10 p-4 pt-20'>
           <NavLink

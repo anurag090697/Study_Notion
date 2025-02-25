@@ -34,6 +34,8 @@ const profileSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
+      default:
+        "https://res.cloudinary.com/anurag213/image/upload/v1729103634/ropes/blw47vvvj4augpgy8ewb.jpg",
     },
     courses: {
       type: mongoose.Schema.Types.ObjectId,

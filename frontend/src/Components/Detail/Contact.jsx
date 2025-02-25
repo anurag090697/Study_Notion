@@ -2,34 +2,36 @@
 
 import React from "react";
 import { TbBrandWechat } from "react-icons/tb";
+import { IoCallOutline } from "react-icons/io5";
+import { MdLocationCity } from "react-icons/md";
 
 function Contact() {
   return (
     <div className='w-full flex items-center justify-evenly flex-wrap'>
-      <div className=' w-fit flex flex-col items-start justify-start gap-3 border-2 font-bold border-slate-400 dark:border-white bg-gray-200 dark:bg-slate-400 rounded-md p-16 hover:scale-105 ease-in-out duration-300 cursor-pointer'>
+      <div className='lg:w-1/3 text-3xl flex flex-col items-start justify-start gap-3 border-2 font-bold border-slate-400 dark:border-white bg-gray-200 dark:bg-slate-400 rounded-md p-16 hover:scale-105 ease-in-out duration-300 cursor-pointer'>
         <div className='flex items-center justify-center gap-3'>
           <TbBrandWechat />
           <div>
             <h3 className='text-xl'>Chat with us</h3>
-            <p className='text-sm text-slate-700'>
-              Our friendly team is here to help.
-            </p> 
-          </div>
-        </div>
-        <div className='flex items-center justify-center gap-3'>
-          <TbBrandWechat />
-          <div>
-            <h3 className='text-xl'>Chat with us</h3>
-            <p className='text-sm text-slate-700'>
+            <p className='text-sm text-slate-600'>
               Our friendly team is here to help.
             </p>
           </div>
         </div>
         <div className='flex items-center justify-center gap-3'>
-          <TbBrandWechat />
+          <MdLocationCity />
+          <div>
+            <h3 className='text-xl'>Visit us</h3>
+            <p className='text-sm text-slate-600'>
+              Come and say hello at our office HQ. Here is the location/ address
+            </p>
+          </div>
+        </div>
+        <div className='flex items-center justify-center gap-3'>
+          <IoCallOutline />
           <div>
             <h3 className='text-xl'>Call us</h3>
-            <p className='text-sm text-slate-700'>
+            <p className='text-sm text-slate-600'>
               Mon-fri from 8am to 5pm. +123 456 7590
             </p>
           </div>
