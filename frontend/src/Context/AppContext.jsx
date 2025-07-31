@@ -14,7 +14,7 @@ function AppContextProvider({ children }) {
     if (user.logged) {
      setSidebar(true);
    } 
-  }, [user.logged]);
+  }, [user]);
 
   return (
     <AppContext.Provider value={{ sidebar, setSidebar, user, setUser }}>

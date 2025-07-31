@@ -13,19 +13,29 @@ import { RiGraduationCapLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 
 function Sidebar() {
-  const { user, Sidebar } = useContext(AppContext);
+  const { user, sidebar } = useContext(AppContext);
 
-  if (!user.logged || !Sidebar) {
+  if (!user.logged || !sidebar) {
     return null;
   }
 
   return (
-    <aside className='flex flex-col items-center justify-start w-60 gap-3 fixed pt-16 z-20 left-0 top-0 h-dvh font-medium text-lg bg-slate-300 dark:text-white dark:bg-slate-700'>
+    <aside className='flex flex-col items-center justify-start w-60 gap-3 fixed pt-26 z-20 left-0 top-0 h-dvh font-medium text-lg bg-slate-300 dark:text-white dark:bg-slate-700'>
+      {/* <NavLink
+        to='/'
+        title='StudyNotion'
+        className='flex gap-2 items-center justify-center text-2xl'
+      >
+        <h1 className='rounded-full text-black text-3xl bg-white h-10 w-10 flex items-center justify-center font-bold'>
+          S
+        </h1>
+        <h2 className='hidden md:block'>StudyNotion</h2>
+      </NavLink> */}
       <hr className='border-slate-400 w-4/5 ' />
       <div className='flex flex-col items-start justify-start gap-4 '>
         <NavLink
-          className={`flex items-center justify-center gap-1 ${
-            user.role == "admin" ? "" : ""
+          className={`flex items-center justify-center gap-1  ${
+            user.role == "admin" ? "hehehehe" : "hohoho"
           } hover:text-gray-500`}
         >
           <CgProfile /> My Profile

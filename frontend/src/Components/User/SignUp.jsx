@@ -6,6 +6,7 @@ import { BiShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import loginP from "../../assets/loginP.jpg";
 import OtpInput from "react-otp-input";
+import { axiosInstance } from "../../Context/AxiosConfig";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,11 +28,45 @@ function SignUp() {
   });
   const generateOtp = async (e) => {
     e.preventDefault();
+    if (signupData.password != signupData.confirmPassword) {
+      setResponseMessage({ message: "", error: "Password does not match" });
+      return;
+    }
     try {
-      const response = "";
-      console.log(signupData);
+      const response = await axiosInstance.post("user/generateOtp", {
+        email: signupData.email,
+      });
+      console.log(response);
+      setOtpOn(true);
     } catch (error) {
-      setResponseMessage(error.data);
+      // setResponseMessage(error.data);
+      console.log(error);
+    }
+  };
+  const createNewUser = async (e) => {
+    try {
+      const response = await axiosInstance.post("user/registerUser", {
+        ...signupData,
+        otp: onetimepassword,
+      });
+      // console.log(response);
+      setSignupData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        mobile: "",
+        role: "student",
+      });
+      setOtpOn(fasle);
+      setResponseMessage({
+        message: "User registered successfully please login to continue.",
+        error: "",
+      });
+    } catch (error) {
+      console.log(error);
+      setOtpOn(false);
     }
   };
   //   console.log(onetimepassword);
@@ -52,6 +87,7 @@ function SignUp() {
             <OtpInput
               value={onetimepassword}
               onChange={setOneTimePassword}
+              // onSubmit={(e) => createNewUser(e)}
               numInputs={6}
               renderSeparator={<span>&nbsp;&nbsp;&nbsp;</span>}
               renderInput={(props) => (
@@ -71,7 +107,10 @@ function SignUp() {
               <p className=''>{resposeMessage.message}</p>
               <p className='text-rose-500'>{resposeMessage.error}</p>
             </div>
-            <button className='text-sm mx-auto flex items-center justify-center gap-2 w-full bg-amber-300 rounded-lg p-3 font-medium hover:scale-110 duration-400 ease-in-out'>
+            <button
+              onClick={(e) => createNewUser(e)}
+              className='text-sm mx-auto flex items-center justify-center gap-2 w-full bg-amber-300 rounded-lg p-3 font-medium hover:scale-110 duration-400 ease-in-out'
+            >
               Submit
             </button>
           </div>
@@ -244,7 +283,7 @@ function SignUp() {
                 <p className='text-rose-500'>{resposeMessage.error}</p>
               </div>
               <button className='text-sm mx-auto flex items-center justify-center gap-2 w-full bg-amber-300 rounded-lg p-3 font-medium hover:scale-110 duration-400 ease-in-out'>
-                Sign In
+                Sign Up
               </button>
             </form>
 

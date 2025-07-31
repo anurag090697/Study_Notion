@@ -13,7 +13,8 @@ export const otpGenrate = async (req, res) => {
     const { email } = req.body;
     // console.log(email, firstname);
     const findUser = await userModel.findOne({ email });
-    // console.log(findUser)
+    // console.log(findUser);
+    // return res.send("heheheh");
     if (findUser) {
       return res
         .status(409)
@@ -36,10 +37,11 @@ export const registerUser = async (req, res) => {
   try {
     let { email, firstname, lastname, password, role, mobile, otp } = req.body;
 
+    // console.log(email, firstname, lastname, password, role, mobile,otp);
     const hashedPassword = await bcrypt.hash(password, 11);
     password = hashedPassword;
     const verifyotp = await otpModel.findOne({ email });
-    // console.log(hashedPassword);
+
     if (!verifyotp) {
       return res.status(404).json({ message: "", error: "Otp expired" });
     } else if (verifyotp.otp != otp) {
@@ -59,6 +61,7 @@ export const registerUser = async (req, res) => {
         .status(401)
         .json({ messgae: "", error: "An error occured please try again." });
     }
+
     await newUser.save();
     res.status(202).json(newUser);
   } catch (error) {
@@ -91,7 +94,7 @@ export const userLogin = async (req, res) => {
         secure: true,
       })
       .status(202)
-      .json(findUser);
+      .json({ ...findUser, logged: true });
   } catch (error) {
     res.status(500).json({ message: "", error: error });
   }
@@ -118,6 +121,17 @@ export const alreadyLoggedUser = async (req, res) => {
     }
     findUser.password = null;
     res.status(202).json(findUser);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const editProfile = async (req, res) => {
+  try {
+    const { data } = req.body;
+
+    console.log(data);
+    res.send("hehe");
   } catch (error) {
     res.status(500).json({ error: error });
   }

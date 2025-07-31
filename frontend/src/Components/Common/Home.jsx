@@ -59,7 +59,7 @@ function Home() {
         className='h-screen w-full bg-cover bg-no-repeat'
         style={{ backgroundImage: `url(${heroBgs[idx]})` }}
       >
-        <div className='flex flex-col items-center justify-center gap-10 p-4 pt-20'>
+        <div  data-aos='zoom-out' className='flex flex-col items-center justify-center gap-10 p-4 pt-20'>
           <NavLink
             to='/signup'
             className='text-xl text-gray-400 flex items-center justify-center gap-2 bg-slate-500/80 rounded-4xl py-2 px-16 font-medium hover:bg-black hover:scale-110 duration-400 ease-in-out'

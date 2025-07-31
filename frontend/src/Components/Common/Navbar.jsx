@@ -7,7 +7,7 @@ import { MdMenu } from "react-icons/md";
 import { AppContext } from "../../Context/AppContext";
 
 function Navbar() {
-  const { sidebar, setSidebar } = useContext(AppContext);
+  const { sidebar, setSidebar, user, setUser } = useContext(AppContext);
 
   return (
     <nav className='w-full flex items-center justify-around z-40 fixed top-0 right-0 bg-slate-300 px-2 py-3 dark:border-b dark:bg-black font-medium dark:text-white'>
@@ -18,6 +18,7 @@ function Navbar() {
         >
           <MdMenu />
         </button>
+
         <NavLink
           to='/'
           title='StudyNotion'
@@ -29,7 +30,7 @@ function Navbar() {
           <h2 className='hidden md:block'>StudyNotion</h2>
         </NavLink>
       </div>
-      <div className='flex gap-3 items-center justify-center text-lg'>
+      <div className='flex gap-3 items-center justify-center text-lg' title="StudyNotion">
         <NavLink
           className={({ isActive }) =>
             isActive ? "text-amber-500" : "" + "hidden md:block"
@@ -80,20 +81,31 @@ function Navbar() {
           Contact Us
         </NavLink>
       </div>
-      <div className='flex gap-2 items-center justify-center text-2xl'>
-        <NavLink
-          to='/login'
-          className='bg-gray-500/60 rounded-md p-1 text-lg hover:bg-slate-500'
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to='/signup'
-          className='bg-gray-500/60 rounded-md p-1 text-lg hover:bg-slate-500'
-        >
-          Signup
-        </NavLink>
-      </div>
+      {user.logged ? (
+        <div className='flex flex-col items-center justify-center'>
+          <img
+            src={user.picture}
+            alt=''
+            className='w-10 h-10 rounded-full object-center'
+          />
+          <h4> {user.firstname + " " + user.lastname}</h4>
+        </div>
+      ) : (
+        <div className='flex gap-3 items-center justify-center text-2xl'>
+          <NavLink
+            to='/login'
+            className='bg-gray-500/40 rounded-md p-1 px-3 text-lg hover:bg-slate-500'
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to='/signup'
+            className='bg-gray-500/40 rounded-md p-1 px-3 text-lg hover:bg-slate-500'
+          >
+            Signup
+          </NavLink>
+        </div>
+      )}
     </nav>
   );
 }

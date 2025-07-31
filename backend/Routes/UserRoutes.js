@@ -2,7 +2,8 @@
 
 import express from "express";
 import {
-    alreadyLoggedUser,
+  alreadyLoggedUser,
+  editProfile,
   otpGenrate,
   registerUser,
   userLogin,
@@ -14,5 +15,6 @@ userRoute.post("/generateOtp", otpGenrate);
 userRoute.post("/registerUser", registerUser);
 userRoute.post("/login", userLogin);
 userRoute.get("/alreadyLogged", alreadyLoggedUser);
+userRoute.patch("/updateUser", editProfile);
 
 export default userRoute;
