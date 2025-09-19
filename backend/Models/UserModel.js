@@ -32,10 +32,19 @@ const profileSchema = new mongoose.Schema(
     about: {
       type: String,
     },
+    about: {
+      type: String,
+    },
+    dateOfBirth: {
+      type: String,
+    },
     picture: {
       type: String,
       default:
         "https://res.cloudinary.com/anurag213/image/upload/v1729103634/ropes/blw47vvvj4augpgy8ewb.jpg",
+    },
+    gender: {
+      type: String,
     },
     courses: {
       type: mongoose.Schema.Types.ObjectId,

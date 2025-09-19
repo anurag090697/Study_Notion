@@ -51,7 +51,7 @@ function App() {
           <Route element={<Profile />} path='/user/profile'></Route>
           <Route element={<AboutUs />} path='/about'></Route>
           <Route element={<Contact />} path='/contact'></Route>
-          <Route element={<Settings />} path='/settings'></Route>
+          <Route element={<Settings />} path='/user/settings'></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

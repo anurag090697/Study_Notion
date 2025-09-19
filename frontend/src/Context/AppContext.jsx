@@ -12,8 +12,8 @@ function AppContextProvider({ children }) {
   useEffect(() => {
     // console.log(user);
     if (user.logged) {
-     setSidebar(true);
-   } 
+      setSidebar(true);
+    }
   }, [user]);
 
   return (

@@ -7,9 +7,11 @@ import { FcGoogle } from "react-icons/fc";
 import loginP from "../../assets/loginP.jpg";
 import { axiosInstance } from "../../Context/AxiosConfig";
 import { AppContext } from "../../Context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [emailPass, setEmailPass] = useState({ email: "", password: "" });
   const { user, setUser } = useContext(AppContext);
   const [resposeMessage, setResponseMessage] = useState({
@@ -30,7 +32,11 @@ function Login() {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    if (user.logged) {
+      navigate("/");
+    }
+  }, [user]);
   useEffect(() => {
     setTimeout(() => {
       setResponseMessage({ message: "", error: "" });

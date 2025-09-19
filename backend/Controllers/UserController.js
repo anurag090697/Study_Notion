@@ -7,6 +7,7 @@ import { sendMail } from "../Services/mailSender.js";
 import { newOtp } from "../Services/otpGenerator.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { uploadImage } from "../Services/uploadToCloudinary.js";
 
 export const otpGenrate = async (req, res) => {
   try {
@@ -126,12 +127,93 @@ export const alreadyLoggedUser = async (req, res) => {
   }
 };
 
+export function userLogout(req, res) {
+  try {
+    res.clearCookie("studyNotion", {
+      httpOnly: true,
+      sameSite: "strict",
+    });
+    res.status(200).json({ message: "Logout successfully", logged: false });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "", error: "An error occured please try again" });
+  }
+}
+
 export const editProfile = async (req, res) => {
   try {
     const { data } = req.body;
+    const findUser = await userModel.findById(data._id);
+    if (!findUser) {
+      return res.status(404).json({ message: "", error: "User not found" });
+    }
+    // console.log(data);
+    findUser.firstname = data.firstname;
+    findUser.lastname = data.lastname;
+    findUser.about = data.about;
+    findUser.gender = data.gender;
+    findUser.dateOfBirth = data.dateOfBirth;
+    findUser.mobile = data.mobile;
+    await findUser.save();
+    findUser.password = null;
+    res.status(202).json(findUser);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
 
-    console.log(data);
-    res.send("hehe");
+export const passwordChange = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, userId } = req.body;
+    console.log(currentPassword, newPassword, userId);
+    const findUser = await userModel.findById(userId);
+    if (!findUser) {
+      return res.status(404).json({ message: "", error: "User not found" });
+    }
+    const matchPassword = await bcrypt.compare(
+      currentPassword,
+      findUser.password
+    );
+
+    if (!matchPassword) {
+      return res
+        .status(403)
+        .json({ message: "", error: "Incorrect Password." });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 11);
+
+    findUser.password = hashedPassword;
+
+    await findUser.save();
+    res.status(201).json(findUser);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const updatePicture = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    // console.log(text);
+    let picture = "";
+    if (req.file) {
+      picture = await uploadImage(req);
+      // console.log(userId);
+    } else {
+      return res.status(406).json({
+        message: "",
+        error: "The image is either too small or does not exist.",
+      });
+    }
+    const findUser = await userModel.findById(userId);
+    if (!findUser) {
+      return res.status(404).json({ message: "", error: "User not found" });
+    }
+    findUser.picture = picture;
+    await findUser.save();
+    res.status(202).json(picture);
   } catch (error) {
     res.status(500).json({ error: error });
   }
